@@ -3,6 +3,8 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <arpa/inet.h>
+#include <unistd.h>
 
 int main(){
 
@@ -20,7 +22,7 @@ int main(){
 	inet_pton(AF_INET, "192.168.128.3/24", &(server_address.sin_addr)); // Change IP to that of the CLIENT.
 
 	// bind the socket to an address
-	bind(server_socket, (struct sockaddr) &server_address, sizeof(server_address));
+	bind(server_socket, (struct sockaddr*) &server_address, sizeof(server_address));
 
 	// Listen for incoming connections, set backlog to 5 for now.
 	listen(server_socket, 5);
