@@ -30,6 +30,8 @@ int main(){
 	}
 
 	else if(connect_success == 0){
+		printf("...Connect Success!");
+		
 		// Client recieves data from Server which is stored in server_response
 		recv(network_socket, &server_response, sizeof(server_response), 0);
 		printf("Server Data: %s\n", server_response);
