@@ -5,6 +5,7 @@
 #include <netinet/in.h>
 
 int main(){
+
 	char server_message[300] = "You have reached the server.\n";
 
 	// creates the server socket
@@ -16,7 +17,7 @@ int main(){
 
 	server_address.sin_family = AF_INET;
 	server_address.sin_port = htons(9002);
-	server_address.sin_addr = INADDR_ANY;
+	inet_pton(AF_INET, "192.168.128.3/24", &(server_address.sin_addr)); // Change IP to that of the CLIENT.
 
 	// bind the socket to an address
 	bind(server_socket, (struct sockaddr) &server_address, sizeof(server_address));

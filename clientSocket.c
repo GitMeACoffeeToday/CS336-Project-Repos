@@ -17,7 +17,7 @@ int main(){
 
 	server_address.sin_family = AF_INET;
 	server_address.sin_port = htons(9002);
-	server_address.sin_addr.s_addr = INADDR_ANY;
+	inet_pton(AF_INET, "192.168.128.2/24", &(server_address.sin_addr)); // Change IP to that of the SERVER.
 
 	int connect_success = connect(network_socket, (struct sockaddr) &server_address, sizeof(server_address));
 
