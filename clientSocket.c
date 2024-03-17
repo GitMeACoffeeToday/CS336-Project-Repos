@@ -36,7 +36,7 @@ int main(){
 	}
 	
 	// Close the socket when done...
-	close(sock);
+	close(network_socket);
 
 	return 0;
 }

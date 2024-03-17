@@ -32,7 +32,7 @@ int main(){
 	client_socket = accept(server_socket, NULL, NULL); // Other two fields left as NULL for now.
 
 	// send message
-	send(client_socket, server_message, sizeof(server_message));
+	send(client_socket, server_message, sizeof(server_message), 0);
 
 	// close the socket when done.
 	close(server_socket);
