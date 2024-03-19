@@ -6,6 +6,8 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
+#include <cJSON.h>
+
 int main(){
 
 	char server_message[300] = "You have reached the server.\n";
@@ -19,7 +21,7 @@ int main(){
 
 	server_address.sin_family = AF_INET;
 	server_address.sin_port = htons(9002);
-	inet_pton(AF_INET, "192.168.128.3/24", &(server_address.sin_addr)); // Change IP to that of the CLIENT.
+	inet_pton(AF_INET, "192.168.128.2", &(server_address.sin_addr)); // Change IP to that of the CLIENT.
 
 	// bind the socket to an address
 	bind(server_socket, (struct sockaddr*) &server_address, sizeof(server_address));

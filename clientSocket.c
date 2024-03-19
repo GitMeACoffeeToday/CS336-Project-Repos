@@ -6,6 +6,8 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
+#include <cJSON.h>
+
 int main(){
 
 	// creating a socket...
@@ -19,7 +21,7 @@ int main(){
 
 	server_address.sin_family = AF_INET;
 	server_address.sin_port = htons(9002);
-	inet_pton(AF_INET, "192.168.128.2/24", &(server_address.sin_addr)); // Change IP to that of the SERVER.
+	inet_pton(AF_INET, "192.168.128.2", &(server_address.sin_addr)); // Change IP to that of the SERVER.
 
 	int connect_success = connect(network_socket, (struct sockaddr*) &server_address, sizeof(server_address));
 
@@ -30,7 +32,7 @@ int main(){
 	}
 
 	else if(connect_success == 0){
-		printf("...Connect Success!");
+		printf("...Connect Success!\n");
 		
 		// Client recieves data from Server which is stored in server_response
 		recv(network_socket, &server_response, sizeof(server_response), 0);
