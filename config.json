@@ -1,0 +1,22 @@
+{
+  "serverIPAddr": "192.168.128.2",
+  "sourcePortNum": "",
+  "destPortNumUDP": "",
+  
+  "destPortNumTCPHead": "",
+  "destPortNumTCPTail": "",
+  
+  "portNumTCPHeadSYN": "",
+  "portNUmTCPTailSYN": "",
+
+  "portNumTCPPreProbe': "",
+  "portNumTCPPostProbe": "",
+
+  "UDPPayloadSize": "",
+
+  "interMeasureTime": "",
+
+  "numUDPPackets": "",
+
+  "UDPPacketTTL": "",
+}
