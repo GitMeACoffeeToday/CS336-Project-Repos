@@ -28,10 +28,31 @@ struct configs{ // Default value set.
 	int UDPPacketTTL = 255;
 };
 
-int main(){
+int main(int argc, char *argv[]){
+
+	char BUFFER[1000];
+
+	if(argc != 2){
+		printf("Invalid File Name Arguement.\n");
+		exit(1);
+	}
+	else{
+		FILE* configfile = fopen(argv[1], "r");
+		if(configfile == 0){
+			printf("Error with Opening File.\n");
+			exit(1);
+		}
+		else{
+			fgets(configfile, 1000, BUFFER); // Pass the JSON file as text to cJSON.
+			cJSON* config = cJSON_Parse(BUFFER);
+
+			int serverIP = cJSON_GetObjectItemCaseSensitive(config, "serverIPAddr")->valueint;
+
+			cJSON_Delete(config); // Deallocate memory afterwards.
+		}
+	}
 
 	// creating a socket...
-
 	int network_socket;
 	network_socket = socket(AF_INET, SOCK_STREAM, 0); // Network socket created
 

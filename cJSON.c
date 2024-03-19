@@ -1919,7 +1919,7 @@ CJSON_PUBLIC(cJSON *) cJSON_GetObjectItem(const cJSON * const object, const char
     return get_object_item(object, string, false);
 }
 
-CJSON_PUBLIC(cJSON *) cJSON_GetObjectItemCaseSensitive(const cJSON * const object, const char * const string)
+CJSON_PUBLIC(cJSON *) cJSON_GetObjectItemCaseSensitive(const cJSON * const object, const char * const string) // KEY
 {
     return get_object_item(object, string, true);
 }
