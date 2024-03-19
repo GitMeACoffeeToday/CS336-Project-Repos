@@ -9,7 +9,7 @@
   "portNumTCPHeadSYN": "",
   "portNUmTCPTailSYN": "",
 
-  "portNumTCPPreProbe': "",
+  "portNumTCPPreProbe": "",
   "portNumTCPPostProbe": "",
 
   "UDPPayloadSize": "",
