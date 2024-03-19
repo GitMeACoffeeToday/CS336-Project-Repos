@@ -8,6 +8,27 @@
 
 #include <cJSON.h>
 
+
+struct configs{ // Default value set.
+	serverIPAddr = "192.168.128.2",
+	int sourcePortNum = 9876
+
+	int destPortNumUDP = 8765
+
+	int destPortNumTCPHeadSYN = 9999;
+	int destPortNumTCPTailSYN = 8888;
+
+	int portNumTCPPreProbe = 7777;
+	int portNumTCPPostProbe = 6666;
+
+	int UDPPayloadSize = 1000;
+
+	int interMeasureTime = 15;
+
+	int numUDPPackets = ;
+	int UDPPacketTTL = 255;
+};
+
 int main(){
 
 	char server_message[300] = "You have reached the server.\n";

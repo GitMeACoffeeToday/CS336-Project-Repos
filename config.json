@@ -3,11 +3,8 @@
   "sourcePortNum": "",
   "destPortNumUDP": "",
   
-  "destPortNumTCPHead": "",
-  "destPortNumTCPTail": "",
-  
-  "portNumTCPHeadSYN": "",
-  "portNUmTCPTailSYN": "",
+  "destPortNumTCPHeadSYN": "",
+  "destPortNumTCPTailSYN": "",
 
   "portNumTCPPreProbe": "",
   "portNumTCPPostProbe": "",
