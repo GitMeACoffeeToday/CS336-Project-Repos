@@ -9,7 +9,27 @@
 #include <cJSON.h>
 
 struct configs{ // Default value set.
-	serverIPAddr = "192.168.128.2",
+	char serverIPAddr[100];
+	int sourcePortNum;
+
+	int destPortNumUDP;
+
+	int destPortNumTCPHeadSYN;
+	int destPortNumTCPTailSYN;
+
+	int portNumTCPPreProbe;
+	int portNumTCPPostProbe;
+
+	int UDPPayloadSize;
+
+	int interMeasureTime;
+
+	int numUDPPackets;
+	int UDPPacketTTL;
+};
+
+void initializeConfig(){ // Initializes the config for the Client Side.
+	char serverIPAddr[100] = "192.168.128.2",
 	int sourcePortNum = 9876
 
 	int destPortNumUDP = 8765
@@ -24,9 +44,9 @@ struct configs{ // Default value set.
 
 	int interMeasureTime = 15;
 
-	int numUDPPackets = ;
+	int numUDPPackets = 6000;
 	int UDPPacketTTL = 255;
-};
+}
 
 int main(int argc, char *argv[]){
 
@@ -43,7 +63,7 @@ int main(int argc, char *argv[]){
 			exit(1);
 		}
 		else{
-			fgets(configfile, 1000, BUFFER); // Pass the JSON file as text to cJSON.
+			fgets(BUFFER, 1000, configfile); // Pass the JSON file as text to cJSON.
 			cJSON* config = cJSON_Parse(BUFFER);
 
 			char serverIP = cJSON_GetObjectItemCaseSensitive(config, "serverIPAddr")->valuestring;
