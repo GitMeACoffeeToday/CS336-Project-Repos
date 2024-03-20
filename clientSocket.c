@@ -6,7 +6,7 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
-#include <cJSON.h>
+#include "/Home/Documents/CS336 CLIENT C Files/cJSON.h"
 
 struct configs{ // Default value set.
 	char serverIPAddr[100];
@@ -28,26 +28,6 @@ struct configs{ // Default value set.
 	int UDPPacketTTL;
 };
 
-void initializeConfig(){ // Initializes the config for the Client Side.
-	char serverIPAddr[100] = "192.168.128.2",
-	int sourcePortNum = 9876
-
-	int destPortNumUDP = 8765
-
-	int destPortNumTCPHeadSYN = 9999;
-	int destPortNumTCPTailSYN = 8888;
-
-	int portNumTCPPreProbe = 7777;
-	int portNumTCPPostProbe = 6666;
-
-	int UDPPayloadSize = 1000;
-
-	int interMeasureTime = 15;
-
-	int numUDPPackets = 6000;
-	int UDPPacketTTL = 255;
-}
-
 int main(int argc, char *argv[]){
 
 	char BUFFER[1000];
@@ -66,7 +46,7 @@ int main(int argc, char *argv[]){
 			fgets(BUFFER, 1000, configfile); // Pass the JSON file as text to cJSON.
 			cJSON* config = cJSON_Parse(BUFFER);
 
-			char serverIP = cJSON_GetObjectItemCaseSensitive(config, "serverIPAddr")->valuestring;
+			char* serverIP = cJSON_GetObjectItemCaseSensitive(config, "serverIPAddr")->valuestring;
 			printf("serverIP from CONFIG: %s\n", serverIP);
 
 			cJSON_Delete(config); // Deallocate memory afterwards.
