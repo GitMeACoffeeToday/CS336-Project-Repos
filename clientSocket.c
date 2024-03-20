@@ -46,10 +46,12 @@ int main(int argc, char *argv[]){
 			fgets(configfile, 1000, BUFFER); // Pass the JSON file as text to cJSON.
 			cJSON* config = cJSON_Parse(BUFFER);
 
-			int serverIP = cJSON_GetObjectItemCaseSensitive(config, "serverIPAddr")->valueint;
+			char serverIP = cJSON_GetObjectItemCaseSensitive(config, "serverIPAddr")->valuestring;
+			printf("serverIP from CONFIG: %s\n", serverIP);
 
 			cJSON_Delete(config); // Deallocate memory afterwards.
 		}
+		close(configfile); // close file afterwards.
 	}
 
 	// creating a socket...
