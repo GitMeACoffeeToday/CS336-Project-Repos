@@ -116,6 +116,7 @@ void setConfig(struct configs* a, FILE* configfile){ // Initializes the config s
 	cJSON_Delete(config); // Deallocate memory afterwards when done setting up config file.
 }
 
+
 int main(int argc, char *argv[]){
 
 	if(argc != 2){

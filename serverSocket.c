@@ -6,28 +6,118 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
-#include <cJSON.h>
+#include <string.h>
+
+#include "cJSON.h"
+#include "cJSON.c"
 
 
 struct configs{ // Default value set.
-	serverIPAddr = "192.168.128.2",
-	int sourcePortNum = 9876
+	char serverIPAddr[100];
+	int sourcePortNum;
 
-	int destPortNumUDP = 8765
+	int destPortNumUDP;
 
-	int destPortNumTCPHeadSYN = 9999;
-	int destPortNumTCPTailSYN = 8888;
+	int destPortNumTCPHeadSYN;
+	int destPortNumTCPTailSYN;
 
-	int portNumTCPPreProbe = 7777;
-	int portNumTCPPostProbe = 6666;
+	int portNumTCPPreProbe;
+	int portNumTCPPostProbe;
 
-	int UDPPayloadSize = 1000;
+	int UDPPayloadSize;
 
-	int interMeasureTime = 15;
+	int interMeasureTime;
 
-	int numUDPPackets = ;
-	int UDPPacketTTL = 255;
+	int numUDPPackets;
+	int UDPPacketTTL;
 };
+
+void setConfig(struct configs* a, FILE* configfile){ // Initializes the config struct for later use.
+	fseek(configfile, 0, SEEK_END);
+	long file_size = ftell(configfile);
+	fseek(configfile, 0, SEEK_SET);
+
+	char BUFFER[file_size];
+	fread(BUFFER, sizeof(char), file_size, configfile);
+
+	cJSON* config = cJSON_Parse(BUFFER);
+
+	// Copy in data.
+	strcpy(a->serverIPAddr, cJSON_GetObjectItemCaseSensitive(config, "serverIPAddr")->valuestring);
+	//##################################//##################################//##################################
+	if(cJSON_GetObjectItemCaseSensitive(config, "sourcePortNum")->valueint != -1){
+		a->sourcePortNum = cJSON_GetObjectItemCaseSensitive(config, "sourcePortNum")->valueint;
+	}
+	else{
+		a->sourcePortNum = 9876;
+	}
+	//##################################//##################################//##################################
+	if(cJSON_GetObjectItemCaseSensitive(config, "destPortNumUDP")->valueint != -1){
+		a->destPortNumUDP = cJSON_GetObjectItemCaseSensitive(config, "destPortNumUDP")->valueint;
+	}
+	else{
+		a->destPortNumUDP = 8765;
+	}
+	//##################################//##################################//##################################
+	if(cJSON_GetObjectItemCaseSensitive(config, "destPortNumTCPHeadSYN")->valueint != -1){
+		a->destPortNumTCPHeadSYN = cJSON_GetObjectItemCaseSensitive(config, "destPortNumTCPHeadSYN")->valueint;
+	}
+	else{
+		a->destPortNumTCPHeadSYN = 9999;
+	}
+	//##################################//##################################//##################################
+	if(cJSON_GetObjectItemCaseSensitive(config, "destPortNumTCPTailSYN")->valueint != -1){
+		a->destPortNumTCPTailSYN = cJSON_GetObjectItemCaseSensitive(config, "destPortNumTCPTailSYN")->valueint;
+	}
+	else{
+		a->destPortNumTCPTailSYN = 8888;
+	}
+	//##################################//##################################//##################################
+	if(cJSON_GetObjectItemCaseSensitive(config, "portNumTCPPreProbe")->valueint != -1){
+		a->portNumTCPPreProbe = cJSON_GetObjectItemCaseSensitive(config, "portNumTCPPreProbe")->valueint;
+	}
+	else{
+		a->portNumTCPPreProbe = 7777;
+	}
+	//##################################//##################################//##################################
+	if(cJSON_GetObjectItemCaseSensitive(config, "portNumTCPPostProbe")->valueint != -1){
+		a->portNumTCPPostProbe = cJSON_GetObjectItemCaseSensitive(config, "portNumTCPPostProbe")->valueint;
+	}
+	else{
+		a->portNumTCPPostProbe = 6666;
+	}
+	//##################################//##################################//##################################
+	if(cJSON_GetObjectItemCaseSensitive(config, "UDPPayloadSize")->valueint != -1){
+		a->UDPPayloadSize = cJSON_GetObjectItemCaseSensitive(config, "UDPPayloadSize")->valueint;
+	}
+	else{
+		a->UDPPayloadSize = 1000;
+	}
+	//##################################//##################################//##################################
+	if(cJSON_GetObjectItemCaseSensitive(config, "interMeasureTime")->valueint != -1){
+		a->interMeasureTime = cJSON_GetObjectItemCaseSensitive(config, "interMeasureTime")->valueint;
+	}
+	else{
+		a->interMeasureTime = 15;
+	}
+	//##################################//##################################//##################################
+	if(cJSON_GetObjectItemCaseSensitive(config, "numUDPPackets")->valueint != -1){
+		a->numUDPPackets = cJSON_GetObjectItemCaseSensitive(config, "numUDPPackets")->valueint;
+	}
+	else{
+		a->numUDPPackets = 6000;
+	}
+	//##################################//##################################//##################################
+	if(cJSON_GetObjectItemCaseSensitive(config, "UDPPacketTTL")->valueint != -1){
+		a->UDPPacketTTL = cJSON_GetObjectItemCaseSensitive(config, "UDPPacketTTL")->valueint;
+	}
+	else{
+		a->UDPPacketTTL = 255;
+	}
+	//##################################//##################################//##################################
+	cJSON_Delete(config); // Deallocate memory afterwards when done setting up config file.
+}
+
 
 int main(){
 
@@ -56,6 +146,13 @@ int main(){
 
 	// send message
 	send(client_socket, server_message, sizeof(server_message), 0);
+
+
+
+
+	char client_response[2000];
+
+
 
 	// close the socket when done.
 	close(server_socket);
