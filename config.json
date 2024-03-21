@@ -1,19 +1,19 @@
 {
   "serverIPAddr": "192.168.128.2",
-  "sourcePortNum": "",
-  "destPortNumUDP": "",
+  "sourcePortNum": "-1",
+  "destPortNumUDP": "-1",
   
-  "destPortNumTCPHeadSYN": "",
-  "destPortNumTCPTailSYN": "",
+  "destPortNumTCPHeadSYN": "-1",
+  "destPortNumTCPTailSYN": "-1",
 
-  "portNumTCPPreProbe": "",
-  "portNumTCPPostProbe": "",
+  "portNumTCPPreProbe": "-1",
+  "portNumTCPPostProbe": "-1",
 
-  "UDPPayloadSize": "",
+  "UDPPayloadSize": "-1",
 
-  "interMeasureTime": "",
+  "interMeasureTime": "-1",
 
-  "numUDPPackets": "",
+  "numUDPPackets": "-1",
 
-  "UDPPacketTTL": "",
+  "UDPPacketTTL": "-1"
 }
