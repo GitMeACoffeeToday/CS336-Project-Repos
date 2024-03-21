@@ -49,6 +49,7 @@ int main(int argc, char *argv[]){
 			fseek(configfile, 0, SEEK_SET);
 
 			char BUFFER[file_size];
+			
 			fread(BUFFER, sizeof(char), file_size, configfile);
 
 			char* serverIP = cJSON_GetObjectItemCaseSensitive(config, "serverIPAddr")->valuestring;
