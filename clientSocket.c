@@ -30,8 +30,6 @@ struct configs{ // Default value set.
 
 int main(int argc, char *argv[]){
 
-	char BUFFER[1000];
-
 	if(argc != 2){
 		printf("Invalid File Name Arguement.\n");
 		exit(1);
@@ -45,6 +43,13 @@ int main(int argc, char *argv[]){
 		else{
 			fgets(BUFFER, 1000, configfile); // Pass the JSON file as text to cJSON.
 			cJSON* config = cJSON_Parse(BUFFER);
+
+			fseek(configfile, 0, SEEK_END);
+			long file_size = ftell(configfile);
+			fseek(configfile, 0, SEEK_SET);
+
+			char BUFFER[file_size];
+			fread(BUFFER, sizeof(char), file_size, configfile);
 
 			char* serverIP = cJSON_GetObjectItemCaseSensitive(config, "serverIPAddr")->valuestring;
 			printf("serverIP from CONFIG: %s\n", serverIP);
