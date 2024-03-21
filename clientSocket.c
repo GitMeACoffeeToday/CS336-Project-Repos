@@ -36,6 +36,7 @@ void setConfig(struct configs* a, FILE* configfile){ // Initializes the config s
 	fseek(configfile, 0, SEEK_SET);
 
 	char BUFFER[file_size];
+	fread(BUFFER, sizeof(char), file_size, configfile);
 
 	cJSON* config = cJSON_Parse(BUFFER);
 
