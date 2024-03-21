@@ -147,8 +147,8 @@ int main(int argc, char *argv[]){
 			struct configs configuration; // Declaring the struct
 			setConfig(&configuration, configfile);
 
-			printf("IP ADDRESS: %s\n", configuration->serverIPAddr);
-			printf("Source Port Number: %d\n", configuration->sourcePortNum);
+			printf("IP ADDRESS: %s\n", configuration.serverIPAddr);
+			printf("Source Port Number: %d\n", configuration.sourcePortNum);
 
 			// creating a socket...
 			int network_socket;
