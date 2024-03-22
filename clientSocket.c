@@ -30,13 +30,7 @@ struct configs{ // Default value set.
 	int UDPPacketTTL;
 };
 
-void setConfig(struct configs* a, FILE* configfile){ // Initializes the config struct for later use.
-	fseek(configfile, 0, SEEK_END);
-	long file_size = ftell(configfile);
-	fseek(configfile, 0, SEEK_SET);
-
-	char BUFFER[file_size];
-	fread(BUFFER, sizeof(char), file_size, configfile);
+void setConfig(struct configs* a, long int file_size, char* BUFFER){ // Initializes the config struct for later use.
 
 	cJSON* config = cJSON_Parse(BUFFER);
 
@@ -146,8 +140,17 @@ int main(int argc, char *argv[]){
 
 			cJSON_Delete(config); // Deallocate memory afterwards.
 			*/
+
+			fseek(configfile, 0, SEEK_END);
+			long file_size = ftell(configfile);
+			fseek(configfile, 0, SEEK_SET);
+
+			char BUFFER[file_size];
+			fread(BUFFER, sizeof(char), file_size, configfile);
+
+
 			struct configs configuration; // Declaring the struct
-			setConfig(&configuration, configfile);
+			setConfig(&configuration, file_size, BUFFER);
 
 			printf("IP ADDRESS: %s\n", configuration.serverIPAddr);
 			printf("Source Port Number: %d\n", configuration.sourcePortNum);
