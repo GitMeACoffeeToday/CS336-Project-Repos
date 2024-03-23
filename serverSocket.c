@@ -118,6 +118,8 @@ int main(){
 	char server_message[300] = "You have reached the server.\n";
 	char client_response[2000];
 
+	struct configs serverConfig;
+
 	// creates the server socket
 	int server_socket;
 	server_socket = socket(AF_INET, SOCK_STREAM, 0);
@@ -141,11 +143,12 @@ int main(){
 
 	// send message
 	send(client_socket, server_message, sizeof(server_message), 0);
-	recv(client_socket, client_response, sizeof(client_response), 0);
+	recv(client_socket, client_response, sizeof(client_response), 0); // Recieve config file.
 
-	printf("Client Response: %s\n", client_response);
+	setConfig(&serverConfig, sizeof(client_response), client_response);
+	printf("source port number: %d\n", sourcePortNum);
 
-
+	
 	// close the socket when done.
 	close(server_socket);
 }
