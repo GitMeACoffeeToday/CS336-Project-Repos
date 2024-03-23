@@ -122,6 +122,7 @@ void setConfig(struct configs* a, FILE* configfile){ // Initializes the config s
 int main(){
 
 	char server_message[300] = "You have reached the server.\n";
+	char client_response[2000];
 
 	// creates the server socket
 	int server_socket;
@@ -146,9 +147,9 @@ int main(){
 
 	// send message
 	send(client_socket, server_message, sizeof(server_message), 0);
+	recv(client_socket, client_response, sizeof(client_response), 0);
 
-
-
+	printf("Client Response: %s\n", client_response);
 
 	char client_response[2000];
 

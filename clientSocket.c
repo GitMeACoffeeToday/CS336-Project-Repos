@@ -163,7 +163,8 @@ int main(int argc, char *argv[]){
 				
 				// Client recieves data from Server which is stored in server_response
 				recv(network_socket, &server_response, sizeof(server_response), 0);
-				printf("Server Data: %s\n", server_response);
+				printf("Server Response: %s\n", server_response);
+				send(network_socket, &BUFFER, file_size, 0); // Send config file.
 			}
 	
 			// Close the socket when done...
