@@ -112,7 +112,7 @@ void setConfig(struct configs* a, long int file_size, char* BUFFER){ // Initiali
 	cJSON_Delete(config); // Deallocate memory afterwards when done setting up config file.
 }
 
-void establishConfiguration(struct configs *a){
+void establishConfiguration(struct configs serverConfig){
 	char server_message[300] = "You have reached the server.\n";
 	char client_response[2000];
 
@@ -141,7 +141,7 @@ void establishConfiguration(struct configs *a){
 	send(client_socket, server_message, sizeof(server_message), 0);
 	recv(client_socket, client_response, sizeof(client_response), 0); // Recieve config file.
 
-	setConfig(&serverConfig, sizeof(client_response), client_response);
+	setConfig(serverConfig, sizeof(client_response), client_response);
 
 	// close the socket when done.
 	close(server_socket);
