@@ -32,84 +32,78 @@ struct configs{ // Default value set.
 	int UDPPacketTTL;
 };
 
-void setConfig(struct configs* a, FILE* configfile){ // Initializes the config struct for later use.
-	fseek(configfile, 0, SEEK_END);
-	long file_size = ftell(configfile);
-	fseek(configfile, 0, SEEK_SET);
-
-	char BUFFER[file_size];
-	fread(BUFFER, sizeof(char), file_size, configfile);
+void setConfig(struct configs* a, long int file_size, char* BUFFER){ // Initializes the config struct for later use.
 
 	cJSON* config = cJSON_Parse(BUFFER);
 
 	// Copy in data.
 	strcpy(a->serverIPAddr, cJSON_GetObjectItemCaseSensitive(config, "serverIPAddr")->valuestring);
 	//##################################//##################################//##################################
-	if(cJSON_GetObjectItemCaseSensitive(config, "sourcePortNum")->valueint != -1){
-		a->sourcePortNum = cJSON_GetObjectItemCaseSensitive(config, "sourcePortNum")->valueint;
+	if(strcmp(cJSON_GetObjectItemCaseSensitive(config, "sourcePortNum")->valuestring, "-1") != 0){
+		a->sourcePortNum = atoi(cJSON_GetObjectItemCaseSensitive(config, "sourcePortNum")->valuestring);
 	}
 	else{
 		a->sourcePortNum = 9876;
 	}
 	//##################################//##################################//##################################
-	if(cJSON_GetObjectItemCaseSensitive(config, "destPortNumUDP")->valueint != -1){
-		a->destPortNumUDP = cJSON_GetObjectItemCaseSensitive(config, "destPortNumUDP")->valueint;
+	if(strcmp(cJSON_GetObjectItemCaseSensitive(config, "destPortNumUDP")->valuestring, "-1") != 0){
+		a->destPortNumUDP = atoi(cJSON_GetObjectItemCaseSensitive(config, "destPortNumUDP")->valuestring);
 	}
 	else{
 		a->destPortNumUDP = 8765;
 	}
 	//##################################//##################################//##################################
-	if(cJSON_GetObjectItemCaseSensitive(config, "destPortNumTCPHeadSYN")->valueint != -1){
-		a->destPortNumTCPHeadSYN = cJSON_GetObjectItemCaseSensitive(config, "destPortNumTCPHeadSYN")->valueint;
+	if(strcmp(cJSON_GetObjectItemCaseSensitive(config, "destPortNumTCPHeadSYN")->valuestring, "-1") != 0){
+		a->destPortNumTCPHeadSYN = atoi(cJSON_GetObjectItemCaseSensitive(config, "destPortNumTCPHeadSYN")->valuestring);
 	}
 	else{
 		a->destPortNumTCPHeadSYN = 9999;
 	}
 	//##################################//##################################//##################################
-	if(cJSON_GetObjectItemCaseSensitive(config, "destPortNumTCPTailSYN")->valueint != -1){
-		a->destPortNumTCPTailSYN = cJSON_GetObjectItemCaseSensitive(config, "destPortNumTCPTailSYN")->valueint;
+	if(strcmp(cJSON_GetObjectItemCaseSensitive(config, "destPortNumTCPTailSYN")->valuestring, "-1") != 0){
+		a->destPortNumTCPTailSYN = atoi(cJSON_GetObjectItemCaseSensitive(config, "destPortNumTCPTailSYN")->valuestring);
 	}
 	else{
 		a->destPortNumTCPTailSYN = 8888;
 	}
 	//##################################//##################################//##################################
-	if(cJSON_GetObjectItemCaseSensitive(config, "portNumTCPPreProbe")->valueint != -1){
-		a->portNumTCPPreProbe = cJSON_GetObjectItemCaseSensitive(config, "portNumTCPPreProbe")->valueint;
+	if(strcmp(cJSON_GetObjectItemCaseSensitive(config, "portNumTCPPreProbe")->valuestring, "-1") != 0){
+		a->portNumTCPPreProbe = atoi(cJSON_GetObjectItemCaseSensitive(config, "portNumTCPPreProbe")->valuestring);
 	}
 	else{
 		a->portNumTCPPreProbe = 7777;
 	}
 	//##################################//##################################//##################################
-	if(cJSON_GetObjectItemCaseSensitive(config, "portNumTCPPostProbe")->valueint != -1){
-		a->portNumTCPPostProbe = cJSON_GetObjectItemCaseSensitive(config, "portNumTCPPostProbe")->valueint;
+	if(strcmp(cJSON_GetObjectItemCaseSensitive(config, "portNumTCPPostProbe")->valuestring, "-1") != 0){
+		a->portNumTCPPostProbe = atoi(cJSON_GetObjectItemCaseSensitive(config, "portNumTCPPostProbe")->valuestring);
 	}
 	else{
 		a->portNumTCPPostProbe = 6666;
 	}
 	//##################################//##################################//##################################
-	if(cJSON_GetObjectItemCaseSensitive(config, "UDPPayloadSize")->valueint != -1){
-		a->UDPPayloadSize = cJSON_GetObjectItemCaseSensitive(config, "UDPPayloadSize")->valueint;
+	if(strcmp(cJSON_GetObjectItemCaseSensitive(config, "UDPPayloadSize")->valuestring, "-1") != 0){
+		a->UDPPayloadSize = atoi(cJSON_GetObjectItemCaseSensitive(config, "UDPPayloadSize")->valuestring);
 	}
 	else{
 		a->UDPPayloadSize = 1000;
 	}
 	//##################################//##################################//##################################
-	if(cJSON_GetObjectItemCaseSensitive(config, "interMeasureTime")->valueint != -1){
-		a->interMeasureTime = cJSON_GetObjectItemCaseSensitive(config, "interMeasureTime")->valueint;
+	if(strcmp(cJSON_GetObjectItemCaseSensitive(config, "interMeasureTime")->valuestring, "-1") != 0){
+		a->interMeasureTime = atoi(cJSON_GetObjectItemCaseSensitive(config, "interMeasureTime")->valuestring);
 	}
 	else{
 		a->interMeasureTime = 15;
 	}
 	//##################################//##################################//##################################
-	if(cJSON_GetObjectItemCaseSensitive(config, "numUDPPackets")->valueint != -1){
-		a->numUDPPackets = cJSON_GetObjectItemCaseSensitive(config, "numUDPPackets")->valueint;
+	if(strcmp(cJSON_GetObjectItemCaseSensitive(config, "numUDPPackets")->valuestring, "-1") != 0){
+		a->numUDPPackets = atoi(cJSON_GetObjectItemCaseSensitive(config, "numUDPPackets")->valuestring);
 	}
 	else{
 		a->numUDPPackets = 6000;
 	}
 	//##################################//##################################//##################################
 	if(cJSON_GetObjectItemCaseSensitive(config, "UDPPacketTTL")->valueint != -1){
-		a->UDPPacketTTL = cJSON_GetObjectItemCaseSensitive(config, "UDPPacketTTL")->valueint;
+		a->UDPPacketTTL = atoi(cJSON_GetObjectItemCaseSensitive(config, "UDPPacketTTL")->valuestring);
 	}
 	else{
 		a->UDPPacketTTL = 255;
@@ -150,9 +144,6 @@ int main(){
 	recv(client_socket, client_response, sizeof(client_response), 0);
 
 	printf("Client Response: %s\n", client_response);
-
-	char client_response[2000];
-
 
 
 	// close the socket when done.
