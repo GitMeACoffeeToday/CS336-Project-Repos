@@ -5,8 +5,8 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-
 #include <string.h>
+#include <signal.h>
 
 #include "cJSON.h"
 #include "cJSON.c"
@@ -146,6 +146,8 @@ void establishConfiguration(struct configs serverConfig){
 	// close the socket when done.
 	close(server_socket);
 }
+
+void serverProbingPhase(){}
 
 
 int main(){

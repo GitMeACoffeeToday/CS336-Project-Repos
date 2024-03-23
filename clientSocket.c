@@ -6,6 +6,7 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <string.h>
+#include <signal.h>
 
 #include "cJSON.h"
 #include "cJSON.c"
@@ -110,15 +111,8 @@ void setConfig(struct configs* a, long int file_size, char* BUFFER){ // Initiali
 	cJSON_Delete(config); // Deallocate memory afterwards when done setting up config file.
 }
 
-
-int main(int argc, char *argv[]){
-
-	if(argc != 2){
-		printf("Invalid File Name Arguement.\n");
-		exit(1);
-	}
-	else{
-		FILE* configfile = fopen(argv[1], "r");
+void clientProbingPhase(char* fileName){
+	FILE* configfile = fopen(argv[1], "r");
 		if(configfile == 0){
 			printf("Error with Opening File.\n");
 			exit(1);
@@ -169,9 +163,19 @@ int main(int argc, char *argv[]){
 	
 			// Close the socket when done...
 			close(network_socket);
-
 		}
 		fclose(configfile); // close file afterwards.
+}
+
+
+int main(int argc, char *argv[]){
+
+	if(argc != 2){
+		printf("Invalid File Name Arguement.\n");
+		exit(1);
+	}
+	else{
+		
 	}
 	return 0;
 }
