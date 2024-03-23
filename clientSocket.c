@@ -175,7 +175,7 @@ int main(int argc, char *argv[]){
 		exit(1);
 	}
 	else{
-		
+		clientProbingPhase(argv[1]);
 	}
 	return 0;
 }
