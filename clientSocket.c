@@ -111,7 +111,7 @@ void setConfig(struct configs* a, long int file_size, char* BUFFER){ // Initiali
 	cJSON_Delete(config); // Deallocate memory afterwards when done setting up config file.
 }
 
-void clientProbingPhase(char* fileName){
+void clientToServerConfig(char* fileName){
 	FILE* configfile = fopen(fileName, "r");
 		if(configfile == 0){
 			printf("Error with Opening File.\n");
@@ -175,7 +175,7 @@ int main(int argc, char *argv[]){
 		exit(1);
 	}
 	else{
-		clientProbingPhase(argv[1]);
+		clientToServerConfig(argv[1]);
 	}
 	return 0;
 }
