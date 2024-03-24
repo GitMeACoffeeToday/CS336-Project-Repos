@@ -112,7 +112,7 @@ void setConfig(struct configs* a, long int file_size, char* BUFFER){ // Initiali
 }
 
 void clientProbingPhase(char* fileName){
-	FILE* configfile = fopen(argv[1], "r");
+	FILE* configfile = fopen(fileName, "r");
 		if(configfile == 0){
 			printf("Error with Opening File.\n");
 			exit(1);
