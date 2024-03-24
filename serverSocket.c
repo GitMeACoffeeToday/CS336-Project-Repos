@@ -153,5 +153,4 @@ void serverProbingPhase(){}
 int main(){
 	struct configs serverConfig;
 	establishConfiguration(&serverConfig);
-	printf("source port number: %d\n", serverConfig.sourcePortNum);
 }
