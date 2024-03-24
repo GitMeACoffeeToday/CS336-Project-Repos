@@ -129,8 +129,8 @@ void clientToServerConfig(char* fileName){
 			struct configs configuration; // Declaring the struct
 			setConfig(&configuration, file_size, BUFFER);
 
-			printf("IP ADDRESS: %s\n", configuration.serverIPAddr);
-			printf("Source Port Number: %d\n", configuration.sourcePortNum);
+			//printf("IP ADDRESS: %s\n", configuration.serverIPAddr);
+			//printf("Source Port Number: %d\n", configuration.sourcePortNum);
 
 			// creating a socket...
 			int network_socket;
@@ -165,6 +165,25 @@ void clientToServerConfig(char* fileName){
 			close(network_socket);
 		}
 		fclose(configfile); // close file afterwards.
+}
+
+void clientProbingPhrase(){
+	int network_socket;
+	network_socket = socket(AF_INET, SOCK_DGRAM, 0); // Network socket created
+
+	// give the socket an address
+
+	struct sockaddr_in server_address;
+
+	server_address.sin_family = AF_INET;
+	server_address.sin_port = htons(9002);
+	inet_pton(AF_INET, "192.168.128.2", &(server_address.sin_addr)); // Change IP to that of the SERVER.
+
+	
+	
+	
+	// Close the socket when done...
+	close(network_socket);
 }
 
 

@@ -147,6 +147,10 @@ void establishConfiguration(struct configs* serverConfig){
 	close(server_socket);
 }
 
+void serverProbingPhrase(){
+	
+}
+
 
 int main(){
 	struct configs serverConfig;
