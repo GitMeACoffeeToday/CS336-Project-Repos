@@ -112,7 +112,7 @@ void setConfig(struct configs* a, long int file_size, char* BUFFER){ // Initiali
 	cJSON_Delete(config); // Deallocate memory afterwards when done setting up config file.
 }
 
-void establishConfiguration(struct configs serverConfig){
+void establishConfiguration(struct configs* serverConfig){
 	char server_message[300] = "You have reached the server.\n";
 	char client_response[2000];
 
@@ -146,8 +146,6 @@ void establishConfiguration(struct configs serverConfig){
 	// close the socket when done.
 	close(server_socket);
 }
-
-void serverProbingPhase(){}
 
 
 int main(){
