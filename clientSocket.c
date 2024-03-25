@@ -196,7 +196,7 @@ int main(int argc, char *argv[]){
 	}
 	else{
 		FILE* configfile = fopen(argv[1] ,"r");
-		if(configFile != 0){
+		if(configfile != 0){
 			fseek(configfile, 0, SEEK_END);
 			long file_size = ftell(configfile);
 			fseek(configfile, 0, SEEK_SET);
