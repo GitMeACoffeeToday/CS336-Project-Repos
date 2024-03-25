@@ -160,7 +160,7 @@ void serverProbingPhase(struct configs){
 	server_address.sin_port = htons(9002);
 	inet_pton(AF_INET, "192.168.128.2", &(server_address.sin_addr)); // Change IP to that of the CLIENT.
 
-	recvfrom(server_socket, client_message, 100, 0, (struct sockaddr*) &server_address, sizeof(server_address));
+	recvfrom(server_socket, client_message, 100, 0, (struct sockaddr*) &server_address, NULL);
 	printf("Client Response: %s\n", client_message);
 
 	close(server_socket);
