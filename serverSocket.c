@@ -151,7 +151,7 @@ void serverProbingPhase(){
 	// creates the server socket
 	client_message[100];
 	int server_socket;
-	server_socket = socket(AF_INET, SOCK_STREAM, 0);
+	server_socket = socket(AF_INET, SOCK_DGRAM, 0);
 
 	// define server address
 	struct sockaddr_in server_address;
