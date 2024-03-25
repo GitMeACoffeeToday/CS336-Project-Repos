@@ -167,7 +167,7 @@ void clientToServerConfig(char* fileName){
 		fclose(configfile); // close file afterwards.
 }
 
-void clientProbingPhrase(){
+void clientProbingPhrase(struct configs clientConfig){
 	int network_socket;
 	network_socket = socket(AF_INET, SOCK_DGRAM, 0); // Network socket created
 
@@ -177,11 +177,10 @@ void clientProbingPhrase(){
 
 	server_address.sin_family = AF_INET;
 	server_address.sin_port = htons(9002);
-	inet_pton(AF_INET, "192.168.128.2", &(server_address.sin_addr)); // Change IP to that of the SERVER.
+	//inet_pton(AF_INET, "192.168.128.2", &(server_address.sin_addr)); // Change IP to that of the SERVER.
+	inet_pton(AF_INET, clientConfig->serverIPAddr, &(server_address.sin_addr)); // Change IP to that of the SERVER.
 
 	sendto(network_socket, "hello!", 7, 0, (struct sockaddr*) &server_address, sizeof(server_address));
-	
-	
 	
 	// Close the socket when done...
 	close(network_socket);
