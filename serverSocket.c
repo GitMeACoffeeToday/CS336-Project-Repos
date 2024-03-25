@@ -147,12 +147,28 @@ void establishConfiguration(struct configs* serverConfig){
 	close(server_socket);
 }
 
-void serverProbingPhrase(){
-	
+void serverProbingPhase(){
+	// creates the server socket
+	client_message[100];
+	int server_socket;
+	server_socket = socket(AF_INET, SOCK_STREAM, 0);
+
+	// define server address
+	struct sockaddr_in server_address;
+
+	server_address.sin_family = AF_INET;
+	server_address.sin_port = htons(9002);
+	inet_pton(AF_INET, "192.168.128.2", &(server_address.sin_addr)); // Change IP to that of the CLIENT.
+
+	recvfrom(server_socket, client_message, 100, 0, (struct sockaddr*) &server_address, sizeof(server_address));
+	printf("Client Response: %s\n", client_response);
+
+	close(server_socket);
 }
 
 
 int main(){
 	struct configs serverConfig;
 	establishConfiguration(&serverConfig);
+	serverProbingPhase();
 }
