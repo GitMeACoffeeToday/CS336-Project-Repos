@@ -167,7 +167,7 @@ void clientToServerConfig(char* fileName){
 		fclose(configfile); // close file afterwards.
 }
 
-void clientProbingPhrase(struct configs clientConfig){
+void clientProbingPhase(struct configs* clientConfig){
 	int network_socket;
 	network_socket = socket(AF_INET, SOCK_DGRAM, 0); // Network socket created
 
@@ -188,13 +188,27 @@ void clientProbingPhrase(struct configs clientConfig){
 
 
 int main(int argc, char *argv[]){
+	struct configs clientConfig;
 
 	if(argc != 2){
 		printf("Invalid File Name Arguement.\n");
 		exit(1);
 	}
 	else{
+		FILE* configfile = fopen(argv[1] ,"r");
+		if(configFile != 0){
+			fseek(configfile, 0, SEEK_END);
+			long file_size = ftell(configfile);
+			fseek(configfile, 0, SEEK_SET);
+
+			char BUFFER[file_size];
+			fread(BUFFER, sizeof(char), file_size, configfile);
+
+			setConfig(&clientConfig, file_size, BUFFER);
+		}
+		
 		clientToServerConfig(argv[1]);
+		clientProbingPhase(&clientConfig);
 	}
 	return 0;
 }
