@@ -180,7 +180,10 @@ void clientProbingPhase(struct configs* clientConfig){
 	//inet_pton(AF_INET, "192.168.128.2", &(server_address.sin_addr)); // Change IP to that of the SERVER.
 	inet_pton(AF_INET, clientConfig->serverIPAddr, &(server_address.sin_addr)); // Change IP to that of the SERVER.
 
-	sendto(network_socket, "hello!", 7, 0, (struct sockaddr*) &server_address, sizeof(server_address));
+	int deliverySuccess = sendto(network_socket, "hello!", 7, 0, (struct sockaddr*) &server_address, sizeof(server_address));
+	if(deliverySuccess == -1){
+		printf("Error! Failed to send DGRAM to Server.\n");
+	}
 	
 	// Close the socket when done...
 	close(network_socket);
