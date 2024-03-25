@@ -179,6 +179,7 @@ void clientProbingPhrase(){
 	server_address.sin_port = htons(9002);
 	inet_pton(AF_INET, "192.168.128.2", &(server_address.sin_addr)); // Change IP to that of the SERVER.
 
+	sendto(network_socket, "hello!", 7, 0, (struct sockaddr*) &server_address, sizeof(server_address));
 	
 	
 	
