@@ -148,7 +148,7 @@ void establishConfiguration(struct configs* serverConfig){
 	close(server_socket);
 }
 
-void serverProbingPhase(struct configs serverConfig){
+void serverProbingPhase(struct configs* serverConfig){
 	// creates the server socket
 	char client_message[100];
 	int server_socket;
@@ -171,22 +171,22 @@ void serverProbingPhase(struct configs serverConfig){
 	time_t high_entropy_seconds2;
 
 	// recieve low entropy packets
-	for(int i = 0; i < serverConfig.numUDPPackets; i++){
+	for(int i = 0; i < serverConfig->numUDPPackets; i++){
 		recvfrom(server_socket, NULL, NULL, 0, (struct sockaddr*) &server_address, NULL);
 		if(i == 0){
 			low_entropy_seconds1 = time(NULL);
 		}
-		if(i == serverConfig.numUDPPackets - 1){
+		if(i == serverConfig->numUDPPackets - 1){
 			low_entropy_seconds2 = time(NULL);
 		}
 	}
 
-	for(int i = 0; i < serverConfig.numUDPPackets; i++){
+	for(int i = 0; i < serverConfig->numUDPPackets; i++){
 		recvfrom(server_socket, NULL, NULL, 0, (struct sockaddr*) &server_address, NULL);
 		if(i == 0){
 			high_entropy_seconds1 = time(NULL);
 		}
-		if(i == serverConfig.numUDPPackets - 1){
+		if(i == serverConfig->numUDPPackets - 1){
 			high_entropy_seconds2 = time(NULL);
 		}
 	}
