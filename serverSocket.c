@@ -191,7 +191,7 @@ void serverProbingPhase(struct configs* serverConfig){
 		}
 	}
 
-	printf("Final Calculation: %1d\n", ((high_entropy_seconds2 - high_entropy_seconds1) - (low_entropy_seconds2 - low_entropy_seconds1)));
+	printf("Final Calculation: %1ld\n", ((high_entropy_seconds2 - high_entropy_seconds1) - (low_entropy_seconds2 - low_entropy_seconds1)));
 
 	//recvfrom(server_socket, client_message, 100, 0, (struct sockaddr*) &server_address, NULL);
 	//printf("Client Response: %s\n", client_message);
