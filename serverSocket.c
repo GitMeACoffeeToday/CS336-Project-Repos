@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <signal.h>
+#include <time.h>
 
 #include "cJSON.h"
 #include "cJSON.c"
@@ -163,9 +164,37 @@ void serverProbingPhase(struct configs){
 	// bind the socket to an address
 	bind(server_socket, (struct sockaddr*) &server_address, sizeof(server_address));
 
-	recvfrom(server_socket, client_message, 100, 0, (struct sockaddr*) &server_address, NULL);
-	printf("Client Response: %s\n", client_message);
+	time_t low_entropy_seconds1;
+	time_t low_entropy_seconds2;	
 
+	time_t high_entropy_seconds1;
+	time_t high_entropy_seconds2;
+
+	// recieve low entropy packets
+	for(int i = 0; i < configs->numUDPPackets; i++){
+		recvfrom(server_socket, NULL, NULL, 0, (struct sockaddr*) &server_address, NULL);
+		if(i == 0){
+			low_entropy_seconds1 = time(NULL);
+		}
+		if(i == configs->numUDPPackets - 1){
+			low_entropy_seconds2 = time(NULL);
+		}
+	}
+
+	for(int i = 0; i < configs->numUDPPackets; i++){
+		recvfrom(server_socket, NULL, NULL, 0, (struct sockaddr*) &server_address, NULL);
+		if(i == 0){
+			high_entropy_seconds1 = time(NULL);
+		}
+		if(i == configs->numUDPPackets - 1){
+			high_entropy_seconds2 = time(NULL);
+		}
+	}
+
+	printf("Final Calculation: %1d\n", ((high_entropy_seconds2 - high_entropy_seconds1) - (low_entropy_seconds2 - low_entropy_seconds1)));
+
+	//recvfrom(server_socket, client_message, 100, 0, (struct sockaddr*) &server_address, NULL);
+	//printf("Client Response: %s\n", client_message);
 	close(server_socket);
 }
 
