@@ -180,9 +180,32 @@ void clientProbingPhase(struct configs* clientConfig){
 	//inet_pton(AF_INET, "192.168.128.2", &(server_address.sin_addr)); // Change IP to that of the SERVER.
 	inet_pton(AF_INET, clientConfig->serverIPAddr, &(server_address.sin_addr)); // Change IP to that of the SERVER.
 
-	int deliverySuccess = sendto(network_socket, "hello!", 7, 0, (struct sockaddr*) &server_address, sizeof(server_address));
-	if(deliverySuccess == -1){
-		printf("Error! Failed to send DGRAM to Server.\n");
+	FILE* highEntropyFile = fopen("high_entropy_data", "r");
+	FILE* lowEntropyFile = fopen("low_entropy_data", "r");
+
+	fseek(highEntropyFile, 0, SEEK_END);
+	long file_size_high = ftell(highEntropyFile);
+	fseek(highEntropyFile, 0, SEEK_SET);
+	char BUFFER_high[file_size_high];
+	fread(BUFFER_high, sizeof(char), file_size_high, highEntropyFile);
+
+
+	fseek(lowEntropyFile, 0, SEEK_END);
+	long file_size_low = ftell(lowEntropyFile);
+	fseek(lowEntropyFile, 0, SEEK_SET);
+	char BUFFER_low[file_size_low];
+	fread(BUFFER_low, sizeof(char), file_size_low, lowEntropyFile);
+
+	// Low Entropy Phase
+	for(int i = 0; i < clientConfig->numUDPPackets; i++){
+		sendto(network_socket, &BUFFER_low, file_size_low, 0, (struct sockaddr*) &server_address, sizeof(server_address));
+	}
+
+	sleep(clientConfig->interMeasureTime); // Sleep for the number of seconds specified in Client Config.
+
+	// High Entropy Phase
+	for(int i = 0; i < clientConfig->numUDPPackets; i++){
+		sendto(network_socket, &BUFFER_high, file_size_high, 0, (struct sockaddr*) &server_address, sizeof(server_address));
 	}
 	
 	// Close the socket when done...
@@ -211,6 +234,7 @@ int main(int argc, char *argv[]){
 		}
 		
 		clientToServerConfig(argv[1]);
+		sleep(5);
 		clientProbingPhase(&clientConfig);
 	}
 	return 0;
