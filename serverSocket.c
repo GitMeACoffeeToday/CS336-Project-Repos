@@ -12,6 +12,15 @@
 #include "cJSON.h"
 #include "cJSON.c"
 
+#include <sys/time.h>
+
+long long timeInMilliseconds() {
+    struct timeval tv;
+
+    gettimeofday(&tv,NULL);
+    return (((long long)tv.tv_sec)*1000)+(tv.tv_usec/1000);
+}
+
 
 struct configs{ // Default value set.
 	char serverIPAddr[100];
@@ -165,31 +174,38 @@ void serverProbingPhase(struct configs* serverConfig){
 	// bind the socket to an address
 	bind(server_socket, (struct sockaddr*) &server_address, sizeof(server_address));
 
+	/*
 	time_t low_entropy_seconds1;
 	time_t low_entropy_seconds2;	
 
 	time_t high_entropy_seconds1;
 	time_t high_entropy_seconds2;
+	*/
 
+	long long low_entropy_seconds1;
+	long long low_entropy_seconds2;	
+
+	long long high_entropy_seconds1;
+	long long high_entropy_seconds2;
 
 	// recieve low entropy packets
 	for(int i = 0; i < serverConfig->numUDPPackets; i++){
 		recvfrom(server_socket, NULL, NULL, 0, (struct sockaddr*) &server_address, NULL);
 		if(i == 0){
-			low_entropy_seconds1 = time(NULL);
+			low_entropy_seconds1 = timeInMilliseconds();
 		}
 		if(i == serverConfig->numUDPPackets - 1){
-			low_entropy_seconds2 = time(NULL);
+			low_entropy_seconds2 = timeInMilliseconds();
 		}
 	}
 
 	for(int i = 0; i < serverConfig->numUDPPackets; i++){
 		recvfrom(server_socket, NULL, NULL, 0, (struct sockaddr*) &server_address, NULL);
 		if(i == 0){
-			high_entropy_seconds1 = time(NULL);
+			high_entropy_seconds1 = timeInMilliseconds();
 		}
 		if(i == serverConfig->numUDPPackets - 1){
-			high_entropy_seconds2 = time(NULL);
+			high_entropy_seconds2 = timeInMilliseconds();
 		}
 	}
 
