@@ -233,7 +233,7 @@ void serverProbingPhase(struct configs* serverConfig){
 
 	int compressionThresholdTime = abs((high_entropy_seconds2 - high_entropy_seconds1) - (low_entropy_seconds2 - low_entropy_seconds1);
 
-	printf("Final Calculation: %d\n", abs((high_entropy_seconds2 - high_entropy_seconds1) - (low_entropy_seconds2 - low_entropy_seconds1));
+	printf("Final Calculation: %d\n", abs((high_entropy_seconds2 - high_entropy_seconds1) - (low_entropy_seconds2 - low_entropy_seconds1)));
 
 	sendToClientTCP(abs((high_entropy_seconds2 - high_entropy_seconds1) - (low_entropy_seconds2 - low_entropy_seconds1) + '0', 1));
 
