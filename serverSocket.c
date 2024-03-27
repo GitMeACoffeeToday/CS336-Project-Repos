@@ -182,11 +182,11 @@ void serverProbingPhase(struct configs* serverConfig){
 	time_t high_entropy_seconds2;
 	*/
 
-	long long low_entropy_seconds1;
-	long long low_entropy_seconds2;	
+	long low_entropy_seconds1;
+	long low_entropy_seconds2;	
 
-	long long high_entropy_seconds1;
-	long long high_entropy_seconds2;
+	long high_entropy_seconds1;
+	long high_entropy_seconds2;
 
 	// recieve low entropy packets
 	for(int i = 0; i < serverConfig->numUDPPackets; i++){
