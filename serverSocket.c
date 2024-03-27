@@ -235,7 +235,12 @@ void serverProbingPhase(struct configs* serverConfig){
 
 	printf("Final Calculation: %d\n", abs((high_entropy_seconds2 - high_entropy_seconds1) - (low_entropy_seconds2 - low_entropy_seconds1)));
 
-	sendToClientTCP(abs((high_entropy_seconds2 - high_entropy_seconds1) - (low_entropy_seconds2 - low_entropy_seconds1) + '0', 1));
+	char final_calculation = abs((high_entropy_seconds2 - high_entropy_seconds1) - (low_entropy_seconds2 - low_entropy_seconds1)) + '0';
+	char BUFFER[10];
+
+	strcpy(BUFFER, &final_calculation);
+
+	sendToClientTCP(BUFFER, sizeof(BUFFER)));
 
 	//recvfrom(server_socket, client_message, 100, 0, (struct sockaddr*) &server_address, NULL);
 	//printf("Client Response: %s\n", client_message);
