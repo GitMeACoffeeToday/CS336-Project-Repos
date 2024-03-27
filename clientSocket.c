@@ -200,7 +200,7 @@ void clientProbingPhase(struct configs* clientConfig){
 	// Low Entropy Phase
 	for(int i = 0; i < clientConfig->numUDPPackets; i++){
 		sendto(network_socket, &BUFFER_low, file_size_low, 0, (struct sockaddr*) &server_address, sizeof(server_address));
-		nanosleep((const struct timespec[]){{0, 8000000L}}, NULL);
+		nanosleep((const struct timespec[]){{0, 3000000L}}, NULL);
 	}
 
 	sleep(clientConfig->interMeasureTime); // Sleep for the number of seconds specified in Client Config.
@@ -208,7 +208,7 @@ void clientProbingPhase(struct configs* clientConfig){
 	// High Entropy Phase
 	for(int i = 0; i < clientConfig->numUDPPackets; i++){
 		sendto(network_socket, &BUFFER_high, file_size_high, 0, (struct sockaddr*) &server_address, sizeof(server_address));
-		nanosleep((const struct timespec[]){{0, 8000000L}}, NULL);
+		nanosleep((const struct timespec[]){{0, 3000000L}}, NULL);
 	}
 	
 	// Close the socket when done...
