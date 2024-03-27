@@ -14,11 +14,11 @@
 
 #include <sys/time.h>
 
-long long timeInMilliseconds() {
-    struct timeval tv;
+long timeInMilliseconds() {
+    struct timeval time;
 
-    gettimeofday(&tv,NULL);
-    return (((long long)tv.tv_sec)*1000)+(tv.tv_usec/1000);
+    gettimeofday(&time,NULL);
+    return (time.tv_sec*1000)+(time.tv_usec/1000);
 }
 
 
@@ -123,7 +123,7 @@ void setConfig(struct configs* a, long int file_size, char* BUFFER){ // Initiali
 }
 
 void establishConfiguration(struct configs* serverConfig){
-	char server_message[300] = "You have reached the server.\n";
+	//char server_message[300] = "You have reached the server.\n";
 	char client_response[2000];
 
 	// creates the server socket
@@ -148,7 +148,7 @@ void establishConfiguration(struct configs* serverConfig){
 	client_socket = accept(server_socket, NULL, NULL); // Other two fields left as NULL for now.
 
 	// send message
-	send(client_socket, server_message, sizeof(server_message), 0);
+	//send(client_socket, server_message, sizeof(server_message), 0);
 	recv(client_socket, client_response, sizeof(client_response), 0); // Recieve config file.
 
 	setConfig(serverConfig, sizeof(client_response), client_response);
@@ -209,7 +209,7 @@ void serverProbingPhase(struct configs* serverConfig){
 		}
 	}
 
-	printf("Final Calculation: %lld\n", (high_entropy_seconds2 - high_entropy_seconds1) - (low_entropy_seconds2 - low_entropy_seconds1));
+	printf("Final Calculation: %ld\n", (high_entropy_seconds2 - high_entropy_seconds1) - (low_entropy_seconds2 - low_entropy_seconds1));
 
 	//recvfrom(server_socket, client_message, 100, 0, (struct sockaddr*) &server_address, NULL);
 	//printf("Client Response: %s\n", client_message);
