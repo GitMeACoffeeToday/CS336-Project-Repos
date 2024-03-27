@@ -220,5 +220,5 @@ void serverProbingPhase(struct configs* serverConfig){
 int main(){
 	struct configs serverConfig;
 	establishConfiguration(&serverConfig);
-	serverProbingPhase();
+	serverProbingPhase(&serverConfig);
 }
